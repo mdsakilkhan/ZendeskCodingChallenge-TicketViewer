@@ -1,4 +1,10 @@
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.*;
 
 /**
  * Zendesk Ticket Viewer
@@ -21,27 +27,29 @@ public class TicketViewer{
 											"Type \"list\"        : to view full ticket list",
 											"Type \"{Ticket_ID}\" : to view detailed ticket information",
 											"Type \"quit\"        : to exit program");
-
+	
 	/**
 	 * The main funtion starts with a welcome message asking the users
 	 * to select options whether to display a list or a single ticket.
 	 */
-	public static void main(String []args){
-		System.out.printf("%n%s%n%n%s%s%n%s", borderLine, 
-							"\033[1;32m", "✨ Ticket Viewer ✨", openingOptions);
-							
-		while (true) {
-			Scanner input = new Scanner(System.in);
+	public static void main(String []args) throws IOException, InterruptedException, ParseException {
+		System.out.printf("%n%s%n%n%s%s%n", borderLine, 
+							"\033[1;32m", "✨ Ticket Viewer ✨");
+
+		login();
+
+		System.out.printf("%s", openingOptions);
+		Scanner input = new Scanner(System.in);					
+		while (true) {			
 			System.out.printf("%n\033[0;31m👉 ");
 			String command = input.nextLine();
-
-			try {
+			
+			try {				
 				int id = Integer.parseInt(command);
 				detailedTicket(id);
 			}
 			catch(Exception exc) {
 				if (command.equals("quit")) {
-					input.close();
 					break;
 				}
 				else if (command.equals("list")) {
@@ -51,38 +59,9 @@ public class TicketViewer{
 					System.out.printf("%s", openingOptions);
 				}
 			}
-		}
+		}		
+		input.close();
 		quit();
-	}
-
-	/**
-	 * The quit function ends the program with a bye message.
-	 */
-	private static void quit() {
-		System.out.printf("%n%s%s%n%n%s%n",
-			"\033[1;32m", "Bye!!! 😊", borderLine);
-		System.exit(0);
-	}
-
-	/**
-	 * This function is not yet complete. It will display one detailed ticket.
-	 * 
-	 * @param	the integer id of the ticket that needs to be displayed.
-	 */
-	private static void detailedTicket(int id) {
-		System.out.printf("%d%n", id);
-	}
-
-	/**
-	 * This function is not yet complete. It will display the full list 
-	 * 25 tickets per page.
-	 *
-	 * @param	the integer currentPage tells us where to start the list from.
-	 * @param	the integer totalPage represents how many pages of 25 tickets are there.
-	 */
-	private static void fullListTable(int currentPage, int totalPage) {
-		System.out.printf("%n\033[0mFull List page (%d/%d)", currentPage, totalPage);
-		System.out.printf("%nblah blah...%n");
 	}
 
 	/**
@@ -131,4 +110,115 @@ public class TicketViewer{
 			}
 		}
 	}
+
+	/**
+	 * this is the login function where users are prompted to enter 
+	 * their login info inorder to use curl to get the tickets and also count.
+	 * I realized that tickets.json already contains count so that will be removed
+	 * I have also notice that there are more tickets at ?page2 so i will need
+	 * to add that json file also.
+	 *
+	 * Once logged in properly the JSONParser class will get all the individual 
+	 * data from the files for the display. Since I am creating temporary files
+	 * no need to save user login info.
+	 */
+	private static void login() throws IOException, InterruptedException, ParseException {
+		System.out.printf("%n\033[0;36mPlease login to continue%n");	
+		
+		int counter = 0;
+		while(counter < 2) {
+			counter = 0;
+			Scanner input = new Scanner(System.in);
+			System.out.printf("%n\033[0;31m{subdomain}👉 ");
+			String domain = input.nextLine();
+			System.out.printf("\033[0;31m{email_address}👉 ");
+			String email = input.nextLine();
+			System.out.printf("\033[0;31m{password}👉 ");
+			String pass = input.nextLine();
+			
+			String ticketLink = String.format("curl https://%s.zendesk.com/api/v2/tickets.json -u %s:%s", domain, email, pass);
+			System.out.printf("%nRunning... %s%n", ticketLink);
+			
+			ProcessBuilder processBuilder = new ProcessBuilder(ticketLink.split(" "));		
+			var fileName = new File("ticket.json");        
+			processBuilder.redirectOutput(fileName);
+			var process = processBuilder.start();
+			process.waitFor();
+	
+			try{
+				Object obj = new JSONParser().parse(new FileReader("ticket.json"));
+				JSONObject jo = (JSONObject) obj;
+				if(jo.containsKey("tickets")){
+					counter++;
+				}
+			}
+			catch(Exception exc){}
+	
+			String countLink = String.format("curl https://%s.zendesk.com/api/v2/tickets/count -u %s:%s", domain, email, pass);
+			System.out.printf("Running... %s", countLink);
+	
+			ProcessBuilder processBuilder2 = new ProcessBuilder(countLink.split(" "));		
+			var fileName2 = new File("count.json");        
+			processBuilder2.redirectOutput(fileName2);
+			var process2 = processBuilder2.start();
+			process2.waitFor();
+			
+			try{
+				Object obj2 = new JSONParser().parse(new FileReader("count.json"));
+				JSONObject jo2 = (JSONObject) obj2;
+				if(jo2.containsKey("count")){
+					counter++;
+				}
+			}
+			catch(Exception exc){}
+
+			if(counter < 2){
+				System.out.printf("%n%n%s%s%n%s%n%s%n%s%n%n", "\033[0;36m",
+						"Couldn't authenticate you",
+						"Would you like to try again?",
+						"Press any key  : to try again",
+						"Type \"quit\"    : to exit program");
+				
+				System.out.printf("\033[0;31m👉 ");	
+				String command = input.nextLine();	
+
+				if (command.equals("quit")) {
+					input.close();
+					quit();
+				}
+			}
+		}
+		System.out.printf("%nData retrieved!%n");
+	}
+
+	/**
+	 * This function is not yet complete. It will display one detailed ticket.
+	 * 
+	 * @param	id	the integer id of the ticket that needs to be displayed.
+	 */
+	private static void detailedTicket(int id) {
+		System.out.printf("%d%n", id);
+	}
+
+	/**
+	 * This function is not yet complete. It will display the full list 
+	 * 25 tickets per page.
+	 *
+	 * @param	currentPage		the integer currentPage tells us where to start the list from.
+	 * @param	totalPage		the integer totalPage represents how many pages of 25 tickets are there.
+	 */
+	private static void fullListTable(int currentPage, int totalPage) {
+		System.out.printf("%n\033[0mFull List page (%d/%d)", currentPage, totalPage);
+		System.out.printf("%nblah blah...%n");
+	}
+
+	/**
+	 * The quit function ends the program with a bye message.
+	 */
+	private static void quit() {
+		System.out.printf("%n%s%s%n%n%s%n",
+			"\033[1;32m", "Bye!!! 😊", borderLine);
+		System.exit(0);
+	}
+
 }
