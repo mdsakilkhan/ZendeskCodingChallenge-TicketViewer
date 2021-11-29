@@ -13,27 +13,27 @@ import org.json.simple.parser.JSONParser;
  * @version 1.0
  */
 
-public class TicketViewer{
+public class TicketViewerLite{
 	
 	private final static int ticketsPerPage = 100;
 
-    private final static String borderLine = String.format("%s%90s", "\033[1;30m", " ").replaceAll(" ", "x");
+    private final static String borderLine = String.format("%90s", " ").replaceAll(" ", "x");
 	
-	private final static String tableBorderLine = String.format("%s%90s", "\033[0m", " ").replaceAll(" ", "-");
+	private final static String tableBorderLine = String.format("%90s", " ").replaceAll(" ", "-");
 	
-	private final static String fullListOptions = String.format("%n%s%s%n%s%n%s%n%s%n%s%n", "\033[0;36m",
+	private final static String fullListOptions = String.format("%n%s%n%s%n%s%n%s%n%s%n",
 											"Type \"list\"        : to view list again",
 											"Type \">\"           : for next page",
 											"Type \"<\"           : for previous page",
 											"Type \"{Ticket_ID}\" : to view detailed ticket information",
 											"Type \"quit\"        : to exit program");
 											
-	private final static String openingOptions = String.format("%n%s%s%n%s%n%s%n", "\033[0;36m",
+	private final static String openingOptions = String.format("%n%s%n%s%n%s%n",
 											"Type \"list\"        : to view full ticket list",
 											"Type \"{Ticket_ID}\" : to view detailed ticket information",
 											"Type \"quit\"        : to exit program");
 											
-	private final static String failedAuth = String.format("%n%s%s%n%s%n%n%s%n%s", "\033[0;36m",
+	private final static String failedAuth = String.format("%n%s%n%s%n%n%s%n%s",
 											"Couldn't authenticate you",
 											"Would you like to try again?",
 											"Press any key  : to try again",
@@ -45,11 +45,11 @@ public class TicketViewer{
 	 * can select options whether to display a list or a single ticket or exit program.
 	 */
 	public static void main(String []args) {
-		System.out.printf("%n%s%n%n%s%s%n", borderLine, "\033[1;32m", "✨ Ticket Viewer ✨");	
+		System.out.printf("%n%s%n%n%s%n", borderLine, "Ticket Viewer");	
 		
 		Scanner input = new Scanner(System.in);	
 
-		System.out.printf("%n\033[0;36mPlease login to continue%n");
+		System.out.printf("%nPlease login to continue%n");
 		
 		String fileName = "tickets.json";
 		long ticketCount = 0;
@@ -66,7 +66,7 @@ public class TicketViewer{
 					filesCreated = createAllFiles(loginInfo[1], loginInfo[2]);
 					
 					ticketCount = getLongFromJson(fileName, "count");
-					System.out.printf("%n\033[0mData retrieved!%nYou have: %d Tickets%n", ticketCount);
+					System.out.printf("%nData retrieved!%nYou have: %d Tickets%n", ticketCount);
 					break;
 				}
 				else{
@@ -128,7 +128,7 @@ public class TicketViewer{
 	public static String getUserInput(Scanner input, int filesCreated) {
 		String command = null;
 		
-		System.out.printf("%n\033[0;31m👉 ");	
+		System.out.printf("%n > ");	
 		command = input.nextLine();	
 
 		if (command.equals("quit")) {
@@ -146,11 +146,11 @@ public class TicketViewer{
 	 * @return					a string array with users domain, email, password, and executeable command
 	 */
 	public static String[] getLoginInfo(Scanner input) {
-		System.out.printf("%n\033[0;31m{subdomain}👉 ");
+		System.out.printf("%n{subdomain} > ");
 		String domain = input.nextLine();
-		System.out.printf("\033[0;31m{email_address}👉 ");
+		System.out.printf("{email_address} > ");
 		String email = input.nextLine();
-		System.out.printf("\033[0;31m{password}👉 ");
+		System.out.printf("{password} > ");
 		String password = input.nextLine();
 
 		String ticketLink = String.format("curl https://%s.zendesk.com/api/v2/tickets.json -u %s:%s", domain, email, password);
@@ -438,7 +438,7 @@ public class TicketViewer{
 			return false;
 		}
 		try{
-			System.out.printf("%n\033[0m%s (%d/%d)%n%s%n| %s | %s | %-40s | %-16s |%n%s%n", 
+			System.out.printf("%n%s (%d/%d)%n%s%n| %s | %s | %-40s | %-16s |%n%s%n", 
 								"Full List Page", currentPage, totalPage, tableBorderLine, 
 								"Ticket ID", "Created Date", "Subject", "Submitter ID", tableBorderLine);
 
@@ -513,7 +513,7 @@ public class TicketViewer{
 			System.out.printf("%d files deleted.%n", deleteAllFile(filesCreated));
 		}
 
-		System.out.printf("%n%s%s%n%n%s%n",	"\033[1;32m", "Bye!!! 😊", borderLine);
+		System.out.printf("%n%s%n%n%s%n", "Bye!!!", borderLine);
 		System.exit(0);
 	}
 
