@@ -27,7 +27,7 @@ TicketViewerTest.java : includes unit test Java file
 - **Reference Jar files in VSCode** : as can be seen in the image below in VSCode (located in the bottom left corner of a Java project) the two files need to be added to **referenced libraries**. <br />
   <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/references.jpg" /> <br />
 - The main program and the test program were run through debugger extention however the specific run command can be seen in the image below. <br />
-  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/references.jpg" /> <br /> 
+  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/run_command.jpg" /> <br /> 
 
 ## Assumptions
 The program was created with certain assumptions and may run in to bugs if the assumptions are not true. <br />
@@ -36,24 +36,24 @@ The program was created with certain assumptions and may run in to bugs if the a
 
 ## Program Images
 **Login Failed** <br /> <br />
-  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/login_failed.jpg" /> <br />
+  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/login_failed.jpg" width="600" /> <br />
 
 **Login Successful** <br /> <br />
-  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/login_successful_censored.jpg" /> <br />
+  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/login_successful_censored.jpg" width="600" /> <br />
 
 **Single Ticket Display** <br /> <br />
-  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/single_ticket_1.jpg" /> <br />
-  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/single_ticket_2.jpg" /> <br />
+  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/single_ticket_1.jpg" width="600" /> <br />
+  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/single_ticket_2.jpg" width="600" /> <br />
 
 **List View** <br /> <br />
-  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/list_view_1.jpg" /> <br />
-  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/list_view_2.jpg" /> <br />
+  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/list_view_1.jpg" width="600" /> <br />
+  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/list_view_2.jpg" width="600" /> <br />
 
 **Quit Sequence** <br /> <br />
-  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/quit.jpg" /> <br />
+  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/quit.jpg" width="600" /> <br />
 
 **Unit Test Output** <br /> <br />
-  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/unit_test_results.jpg" /> <br />
+  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/unit_test_results.jpg" width="300" /> <br />
 
 ## Dear Reviewer
 **Thank you!!!** so much for taking the time to review my program. If you have any questions or concerns please feel free to contact me at *sakil2468@gmail.com*. Hope you have a blessed day. <br /> <br />
