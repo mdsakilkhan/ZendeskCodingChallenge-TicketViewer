@@ -5,13 +5,13 @@
 ## Description
 **Zendesk Ticket Viewer** is an application that allows user to login to their Zendesk account and view their collection of tickets. Users can view the tickets in a list or see a detailed information about a particular ticket. The Ticket Viewer is displayed in a shell but has a colorful and user-friendly aesthetic.
 
-## Repository breakdown
-jar files : includes two .jar files I used for the program <br />
+## Repository Breakdown
+jar files : includes two .jar files used for the program <br />
 progress images : images used in the readme.md <br />
 readme.md : which is me, hi! 😄 <br />
-**TicketViewer.java** : the main program, all-in-one, contains all the necessary functions to run the Zendesk Ticket Viewer
-TicketViewerLite.java : same as TicketViewer.java however emojis and color have been taken out 
-TicketViewerTest.java : includes unit test Java file
+**TicketViewer.java** : the main program, all-in-one, contains all the necessary functions to run the Zendesk Ticket Viewer <br />
+TicketViewerLite.java : same as TicketViewer.java however emojis and color have been taken out  <br />
+TicketViewerTest.java : includes unit test Java file <br />
 
 ## Instructions & Dependencies
 - The program was run and tested on a **Windows 10** OS
@@ -25,7 +25,7 @@ TicketViewerTest.java : includes unit test Java file
   - org_junit_platform_junit-platform-console-standalone_1.6.0_junit-platform-console-standalone-1.6.0 (needed for unit testing) <br />
     **link** https://mvnrepository.com/artifact/org.junit.platform/junit-platform-console-standalone
 - **Reference Jar files in VSCode** : as can be seen in the image below in VSCode (located in the bottom left corner of a Java project) the two files need to be added to **referenced libraries**. <br />
-  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/references.jpg" /> <br />
+  <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/references.jpg" width="300" /> <br />
 - The main program and the test program were run through debugger extention however the specific run command can be seen in the image below. <br />
   <img src="https://github.com/mdsakilkhan/ZendeskCodingChallenge-TicketViewer/blob/main/progress%20images/run_command.jpg" /> <br /> 
 
